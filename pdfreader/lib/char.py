@@ -27,7 +27,9 @@ class char(object):
         return self._y
 
     def __init__(self, xml_char):
-        self._font = xml_char.get('font').split('+')[1] if xml_char.get('font') != None else None
+        self._font = xml_char.get('font') if xml_char.get('font') != None else None
+        if self._font is not None and '+' in self._font:
+            self._font = self._font.split('+')[1] 
         if self._font is not None:
             (left, top, self._width, self._height) = xml_char.get('bbox').split(',')
             self._width = int(float(self._width))
