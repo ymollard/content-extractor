@@ -1,4 +1,4 @@
-from cStringIO import StringIO
+from io import StringIO
 from bs4 import BeautifulSoup
 from page import page
 import json
@@ -26,15 +26,15 @@ class book(object):
         return array
 
     def toJson(self):
-        return json.dumps(self.toDict())
+        return json.dumps(self.toDict(), indent=4)
 
-    def __str__(self):
+    def get(self):
         string = StringIO()
         count = 0
         for p in self._pages:
             if count != 0:
-                string.write('NEW PAGE')
-            string.write(str(p))
+                string.write(u'NEW PAGE')
+            string.write(p.get())
             count = 1
         return string.getvalue()
 

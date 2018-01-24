@@ -1,5 +1,5 @@
 from paragraph import paragraph
-from cStringIO import StringIO
+from io import StringIO
 
 class page(object):
 
@@ -23,13 +23,13 @@ class page(object):
         return array
 
 
-    def __str__(self):
+    def get(self):
         string = StringIO()
         count = 0
         for p in self._paragraphs:
             if count != 0:
-                string.write("\n\n")
-            string.write(str(p))
+                string.write(u"\n\n")
+            string.write(p.get())
             count = 1
         return string.getvalue()
 

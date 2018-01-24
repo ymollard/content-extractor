@@ -8,7 +8,7 @@ class char(object):
     _font = None
     _isBold = False
     _isItalic = False
-    _char = ''
+    _char = u''
 
     @property
     def font(self):
@@ -41,7 +41,8 @@ class char(object):
             self._isItalic = True if len(self._font.split('-')) == 2 and 'Italic' in self._font.split('-')[1] else False
             self._font = self._font.split('-')[0]
             #
-            self._char = xml_char.string
+            self._char = unicode(xml_char.string)
+
 
     def isBold(self):
         return self._isBold
@@ -49,11 +50,8 @@ class char(object):
     def isItalic(self):
         return self._isItalic
 
-    def __str__(self):
+    def get(self):
         if self._font is None:
-            return ""
-        try:
-            char = str(self._char)
-            return char
-        except UnicodeEncodeError:
-            return ""
+            return u""
+        return self._char
+

@@ -100,7 +100,7 @@ class ImportPSD(object):
     @classmethod
     def toJson(self):
         """ Will convert the parsed data array into json """
-        return json.dumps(self.data)
+        return json.dumps(self.data, indent=4)
 
 
 

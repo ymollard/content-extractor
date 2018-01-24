@@ -77,13 +77,13 @@ def get_images_update_dict(dict_book, image_folder):
     return dict_book
 
 
-def run(pdf_file, image_folder):
+def run(pdf_file, image_folder, codec='utf-8'):
     print "Reading PDF"
     dict_book = text_to_dict(pdf_file)
     print "Extracting images"
     extract_images(pdf_file)
     dict_book = get_images_update_dict(dict_book, image_folder)
-    return json.dumps(dict_book)
+    return json.dumps(dict_book, indent=2, ensure_ascii=False).encode(codec)
 
 
 if __name__ == '__main__':

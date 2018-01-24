@@ -1,5 +1,5 @@
 from line import line
-from cStringIO import StringIO
+from io import StringIO
 
 class paragraph(object):
 
@@ -53,19 +53,19 @@ class paragraph(object):
         count = 0
         for l in self._lines:
             if count != 0:
-                string.write("\n")
-            string.write(str(l))
+                string.write(u"\n")
+            string.write(l.get())
             count = 1
         dico.update({'string': string.getvalue()})
         return dico
 
-    def __str__(self):
+    def get(self):
         string = StringIO()
         count = 0
         for l in self._lines:
             if count != 0:
-                string.write("\n")
-            string.write(str(l))
+                string.write(u"\n")
+            string.write(l.get())
             count = 1
         return string.getvalue()
 

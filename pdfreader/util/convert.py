@@ -18,7 +18,7 @@ class converter(object):
                '[-Y layout_mode] [-O output_dir] [-t text|html|xml|tag] [-c codec] [-s scale] file ...' % self._argv[0])
         return 100
 
-    def __init__(self):
+    def __init__(self, codec='utf-8'):
         # debug option
         self._debug = 0
         # input option
@@ -30,7 +30,7 @@ class converter(object):
         self._outtype = None
         self._imagewriter = None
         self._layoutmode = 'normal'
-        self._codec = 'utf-8'
+        self._codec = codec
         self._pageno = 1
         self._scale = 1
         self._caching = True
@@ -139,10 +139,10 @@ class converter(object):
             return usage()
         for fname in self._args:
             fp = file(fname, 'rb')
-	    interpreter = PDFPageInterpreter(rsrcmgr, device)
+            interpreter = PDFPageInterpreter(rsrcmgr, device)
 
             for page in PDFPage.get_pages(fp, self._pagenos, maxpages=self._maxpages, password=self._password, caching=self._caching, check_extractable=True):
-            	interpreter.process_page(page)
+                interpreter.process_page(page)
 
             fp.close()
         device.close()

@@ -1,4 +1,4 @@
-from cStringIO import StringIO
+from io import StringIO
 from char import char
 
 class line(object):
@@ -38,6 +38,7 @@ class line(object):
         self._chars = []
         for c in xml_string:
             self._chars.append(char(c))
+
         #
         self._font = self._chars[0].font if len(self._chars) > 0 else None
         self._size = self._chars[0].size if len(self._chars) > 0 else None
@@ -45,28 +46,28 @@ class line(object):
     _italic_on = False
     def handle_italic(self, c, string):
         if self._italic_on is False and c.isItalic() is True:
-            string.write('<i>')
+            string.write(u'<i>')
             self._italic_on = True
         if self._italic_on is True and c.isItalic() is False:
-            string.write('</i>')
+            string.write(u'</i>')
             self._italic_on = False
 
     _bold_on = False
     def handle_bold(self, c, string):
         if self._bold_on is False and c.isBold() is True:
-            string.write('<b>')
+            string.write(u'<b>')
             self._bold_on = True
         if self._bold_on is True and c.isBold() is False:
-            string.write('</b>')
+            string.write(u'</b>')
             self._bold_on = False
 
 
-    def __str__(self):
+    def get(self):
         string = StringIO()
         for c in self._chars:
             self.handle_italic(c, string)
             self.handle_bold(c, string)
-            string.write(str(c))
+            string.write(c.get())
         return string.getvalue()
 
 
